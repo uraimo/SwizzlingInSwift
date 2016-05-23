@@ -23,20 +23,20 @@ extension TestSwizzling {
     {
         struct Static
         {
-            static var token: dispatch_once_t = 0;
+            static var token: dispatch_once_t = 0
         }
         
         
         // Perform this one time only
         dispatch_once(&Static.token)
         {
-                let originalSelector = #selector(TestSwizzling.methodOne);
-                let swizzledSelector = #selector(TestSwizzling.methodTwo);
+                let originalSelector = #selector(TestSwizzling.methodOne)
+                let swizzledSelector = #selector(TestSwizzling.methodTwo)
                 
-                let originalMethod = class_getInstanceMethod(self, originalSelector);
-                let swizzledMethod = class_getInstanceMethod(self, swizzledSelector);
+                let originalMethod = class_getInstanceMethod(self, originalSelector)
+                let swizzledMethod = class_getInstanceMethod(self, swizzledSelector)
                 
-                method_exchangeImplementations(originalMethod, swizzledMethod);
+                method_exchangeImplementations(originalMethod, swizzledMethod)
         }
     }
     
