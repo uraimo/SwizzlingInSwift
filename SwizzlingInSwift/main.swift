@@ -30,8 +30,8 @@ extension TestSwizzling {
         // Perform this one time only
         dispatch_once(&Static.token)
         {
-                let originalSelector = Selector("methodOne");
-                let swizzledSelector = Selector("methodTwo");
+                let originalSelector = #selector(TestSwizzling.methodOne);
+                let swizzledSelector = #selector(TestSwizzling.methodTwo);
                 
                 let originalMethod = class_getInstanceMethod(self, originalSelector);
                 let swizzledMethod = class_getInstanceMethod(self, swizzledSelector);
