@@ -21,15 +21,17 @@ extension TestSwizzling {
     //In Objective-C you'd perform the swizzling in load() , but this method is not permitted in Swift
     override class func initialize()
     {
-        let _: () = {
-            let originalSelector = #selector(TestSwizzling.methodOne)
-            let swizzledSelector = #selector(TestSwizzling.methodTwo)
+        struct Inner {
+            static let i: () = {
+                let originalSelector = #selector(TestSwizzling.methodOne)
+                let swizzledSelector = #selector(TestSwizzling.methodTwo)
             
-            let originalMethod = class_getInstanceMethod(self, originalSelector)
-            let swizzledMethod = class_getInstanceMethod(self, swizzledSelector)
-            
-            method_exchangeImplementations(originalMethod, swizzledMethod)
-        }()
+                let originalMethod = class_getInstanceMethod(self, originalSelector)
+                let swizzledMethod = class_getInstanceMethod(self, swizzledSelector)
+                method_exchangeImplementations(originalMethod, swizzledMethod)
+            }()
+        }
+        let _ = Inner.i
     }
     
     func methodTwo()->Int{
