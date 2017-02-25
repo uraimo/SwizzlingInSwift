@@ -26,8 +26,8 @@ extension TestSwizzling {
                 let originalSelector = #selector(TestSwizzling.methodOne)
                 let swizzledSelector = #selector(TestSwizzling.methodTwo)
             
-                let originalMethod = class_getInstanceMethod(self, originalSelector)
-                let swizzledMethod = class_getInstanceMethod(self, swizzledSelector)
+                let originalMethod = class_getInstanceMethod(TestSwizzling.self, originalSelector)
+                let swizzledMethod = class_getInstanceMethod(TestSwizzling.self, swizzledSelector)
                 method_exchangeImplementations(originalMethod, swizzledMethod)
             }()
         }
